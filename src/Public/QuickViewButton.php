@@ -17,6 +17,7 @@ class QuickViewButton
     {
         add_action('woocommerce_after_shop_loop_item', [__CLASS__, 'render_button']);
 
+
         // Remove default WooCommerce link open/close if image trigger is enabled, then add our own
         if (get_option('quick_view_trigger_image', 0)) {
             remove_action('woocommerce_template_loop_product_link_open', 'woocommerce_template_loop_product_link_open', 10);
