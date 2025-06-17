@@ -3,29 +3,15 @@ jQuery(document).ready(function ($) {
     $('body').append('<div id="quick-view-modal" style="display:none;"><div class="quick-view-overlay"></div><div class="quick-view-content"></div></div>');
 
     function bindQuickViewTriggers() {
-        // Delegate Quick View button clicks
-        $('body').off('click', '.quick-view-button').on('click', '.quick-view-button', function (e) {
-            console.log('Quick View button clicked, product_id=' + $(this).data('product_id'));
+        // Delegate clicks for button and image (now always on [data-product-id])
+        $('body').off('click', '[data-product-id]').on('click', '[data-product-id]', function (e) {
+            console.log('Quick View clicked: ' + $(this).attr('data-product-id'));
             e.preventDefault();
-            var product_id = $(this).data('product_id');
+            e.stopPropagation();
+            var product_id = $(this).attr('data-product-id');
             openQuickView(product_id);
+            return false;
         });
-
-        if (quickViewAjax.triggerImage === '1') {
-            // Bind to product image
-            $('body').off('click', '.products .product img').on('click', '.products .product img', function (e) {
-                console.log('Quick View image clicked, product_id=' + $(this).closest('.product').find('.quick-view-button').data('product_id'));
-                e.preventDefault();
-                e.stopPropagation();
-                // Disable parent link click:
-                $(this).closest('a').on('click', function (e) {
-                    e.preventDefault();
-                });
-
-                var product_id = $(this).closest('.product').find('.quick-view-button').data('product_id');
-                openQuickView(product_id);
-            });
-        }
     }
 
     function openQuickView(product_id) {
