@@ -3,7 +3,8 @@
     "intelephense.files.maxSize": 10000000,
     "intelephense.environment.includePaths": [
         "./vendor/php-stubs/wordpress-stubs",
-        "/var/www/html/wp-content/plugins/wei-ajax-search/woocommerce-stubs"
+        "/var/www/html/wp-content/plugins/wei-ajax-search/woocommerce-stubs",
+        "./vendor/elementor/elementor"
     ],
     "intelephense.stubs": [
         "standard",

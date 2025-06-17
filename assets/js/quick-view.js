@@ -7,14 +7,11 @@ jQuery(document).ready(function ($) {
             // Bind to product image
             $('.products .product img').css('cursor', 'pointer').off('click').on('click', function (e) {
                 e.preventDefault();
-
                 e.stopPropagation();
-
                 // Disable parent link click:
                 $(this).closest('a').on('click', function (e) {
                     e.preventDefault();
                 });
-
 
                 var product_id = $(this).closest('.product').find('.quick-view-button').data('product_id');
                 openQuickView(product_id);

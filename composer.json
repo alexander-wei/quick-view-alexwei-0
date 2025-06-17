@@ -1,0 +1,11 @@
+{
+    "name": "alexwei/quick-view-for-woocommerce",
+    "description": "Adds a Quick View modal to WooCommerce product listings.",
+    "type": "wordpress-plugin",
+    "license": "GPL-2.0+",
+    "autoload": {
+        "psr-4": {
+            "QuickViewForWC\\": "src/"
+        }
+    }
+}
