@@ -6,6 +6,7 @@ use function add_action;
 use function esc_attr;
 use function esc_html__;
 use function printf;
+use function get_option;
 
 /**
  * Output Quick View trigger button.
@@ -21,6 +22,10 @@ class QuickViewButton
     {
         global $product;
         if (! $product) {
+            return;
+        }
+        // Do not render button when Quick View on image is enabled.
+        if (get_option('quick_view_trigger_image', 0)) {
             return;
         }
 
