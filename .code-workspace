@@ -1,0 +1,20 @@
+// {
+// 	"folders": [
+// 		{
+// 			"name": "quick-view-alexwei-0",
+// 			"path": "."
+// 		}
+// 	],
+// 	"settings": {
+// 		"intelephense.environment.phpVersion": "8.2.26",
+// 		"intelephense.files.maxSize": 10000000,
+// 		"intelephense.environment.includePaths": [
+// 			"/var/www/html/wp-content/plugins/wei-ajax-search/woocommerce-stubs"
+// 		],
+// 		"intelephense.stubs": [
+// 			"standard",
+// 			"wordpress",
+// 			"Core"
+// 		]
+// 	}
+// }

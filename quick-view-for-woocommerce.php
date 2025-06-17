@@ -42,23 +42,21 @@ class Quick_View_For_WooCommerce
     public function ajax_get_product()
     {
         $product_id = intval($_POST['product_id']);
-        $product = wc_get_product($product_id);
+        $template_id = get_option('quick_view_template_id', '');
 
-        if ($product) {
-            ob_start();
-?>
-            <div class="quick-view-modal-content">
-                <img src="<?php echo wp_get_attachment_image_url($product->get_image_id(), 'large'); ?>" />
-                <h2><?php echo $product->get_name(); ?></h2>
-                <p><?php echo $product->get_price_html(); ?></p>
-                <div><?php echo apply_filters('the_content', $product->get_description()); ?></div>
-                <form class="cart" method="post" enctype='multipart/form-data'>
-                    <input type="hidden" name="add-to-cart" value="<?php echo $product->get_id(); ?>" />
-                    <button type="submit" class="single_add_to_cart_button button alt">Add to cart</button>
-                </form>
-            </div>
-        <?php
-            echo ob_get_clean();
+        if ($product_id && $template_id) {
+            global $post;
+            $original_post = $post;
+
+            // Set product context
+            $post = get_post($product_id);
+            setup_postdata($post);
+
+            // Render Elementor Template
+            echo Elementor\Plugin::instance()->frontend->get_builder_content_for_display($template_id, true);
+
+            wp_reset_postdata();
+            $post = $original_post;
         }
 
         wp_die();
@@ -78,6 +76,8 @@ class Quick_View_For_WooCommerce
     public function register_settings()
     {
         register_setting('quick_view_settings_group', 'quick_view_trigger_image');
+        register_setting('quick_view_settings_group', 'quick_view_template_id');
+
 
         add_settings_section('quick_view_main_section', 'Main Settings', null, 'quick-view-settings');
 
@@ -91,11 +91,33 @@ class Quick_View_For_WooCommerce
             'quick-view-settings',
             'quick_view_main_section'
         );
+
+        add_settings_field(
+            'quick_view_template_id',
+            'Quick View Modal Template',
+            function () {
+                $templates = get_posts([
+                    'post_type' => 'elementor_library',
+                    'posts_per_page' => -1
+                ]);
+
+                $selected = get_option('quick_view_template_id', '');
+
+                echo '<select name="quick_view_template_id">';
+                echo '<option value="">-- Select Template --</option>';
+                foreach ($templates as $template) {
+                    echo '<option value="' . esc_attr($template->ID) . '" ' . selected($selected, $template->ID, false) . '>' . esc_html($template->post_title) . '</option>';
+                }
+                echo '</select>';
+            },
+            'quick-view-settings',
+            'quick_view_main_section'
+        );
     }
 
     public function render_settings_page()
     {
-        ?>
+?>
         <div class="wrap">
             <h1>Quick View Settings</h1>
             <form method="post" action="options.php">
