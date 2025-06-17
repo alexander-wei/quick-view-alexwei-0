@@ -1,40 +1,24 @@
 jQuery(document).ready(function ($) {
 
+    // Modal markup (unchanged)
     $('body').append('<div id="quick-view-modal" style="display:none;"><div class="quick-view-overlay"></div><div class="quick-view-content"></div></div>');
 
     function bindQuickViewTriggers() {
-        // Assign data-product-id to product image links using the product's post-XX class
-        $('.products .product').each(function () {
-            var $product = $(this);
-            var classList = $product.attr('class') || '';
-            var match = classList.match(/post-(\d+)/);
-            if (match) {
-                var productId = match[1];
-                var $link = $product.find('a.woocommerce-LoopProduct-link').first();
-                if ($link.length) {
-                    $link.attr('data-product-id', productId);
-                }
+        // No longer assign data-product-id to product image links
+        // Only the overlay button needs data-product-id
+
+        // Remove previous click handlers and only bind to the overlay button
+        $('body').off('click', '.quick-view-overlay-btn').on('click', '.quick-view-overlay-btn', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+            var product_id = $(this).attr('data-product-id');
+            if (product_id) {
+                openQuickView(product_id);
             }
-        });
-
-        // Delegate clicks for button and image (now always on [data-product-id])
-        $('body').off('click', '[data-product-id]').on('click', '[data-product-id]', function (e) {
-            console.log('Quick View clicked: ' + $(this).attr('data-product-id'));
-            e.preventDefault();
-            e.stopPropagation();
-            var product_id = $(this).attr('data-product-id');
-            openQuickView(product_id);
             return false;
         });
 
-        // Explicitly handle clicks on product image links
-        $('body').off('click', '.products .product .woocommerce-LoopProduct-link').on('click', '.products .product .woocommerce-LoopProduct-link', function (e) {
-            e.preventDefault();
-            e.stopPropagation();
-            var product_id = $(this).attr('data-product-id');
-            openQuickView(product_id);
-            return false;
-        });
+        // No interception of product image link clicks; default navigation is preserved
     }
 
     function openQuickView(product_id) {
