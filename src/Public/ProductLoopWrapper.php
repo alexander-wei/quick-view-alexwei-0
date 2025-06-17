@@ -20,8 +20,8 @@ class ProductLoopWrapper
         // add_action('init', [__CLASS__, 'remove_default_product_link']);
 
         // Remove Add to Cart button from product loop after WooCommerce has registered its hooks
-        // add_action('init', [__CLASS__, 'remove_add_to_cart_from_loop'], 20);
-        add_action('template_redirect', [__CLASS__, 'remove_add_to_cart_from_loop'], 20);
+        add_action('init', [__CLASS__, 'remove_add_to_cart_from_loop'], 20);
+        // add_action('template_redirect', [__CLASS__, 'remove_add_to_cart_from_loop'], 20);
 
         // Add custom wrapper open/close
         add_action('woocommerce_before_shop_loop_item', [__CLASS__, 'custom_product_wrapper_open'], 10);
