@@ -32,11 +32,13 @@ class ProductLoopWrapper
         if (! $product) {
             return;
         }
-        echo '<div class="custom-loop-product" data-product-id="' . esc_attr($product->get_id()) . '">';
+        echo '<a href="' . get_permalink($product->get_id()) . '" class="custom-loop-product" data-product-id="' . esc_attr($product->get_id()) . '">';
+        // echo '<div class="custom-loop-product" data-product-id="' . esc_attr($product->get_id()) . '">';
     }
 
     public static function custom_product_wrapper_close(): void
     {
-        echo '</div>';
+        // echo '</div>';
+        echo '</a>';
     }
 }
