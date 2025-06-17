@@ -17,9 +17,17 @@ class QuickViewButton
     {
         add_action('woocommerce_after_shop_loop_item', [__CLASS__, 'render_button']);
 
-        // Add data-product-id to product image link if image trigger is enabled
-        add_action('woocommerce_template_loop_product_link_open', [__CLASS__, 'product_link_open'], 9);
-        add_action('woocommerce_template_loop_product_link_close', [__CLASS__, 'product_link_close'], 9);
+        // Remove default WooCommerce link open/close if image trigger is enabled, then add our own
+        if (get_option('quick_view_trigger_image', 0)) {
+            remove_action('woocommerce_template_loop_product_link_open', 'woocommerce_template_loop_product_link_open', 10);
+            remove_action('woocommerce_template_loop_product_link_close', 'woocommerce_template_loop_product_link_close', 10);
+
+            add_action('woocommerce_template_loop_product_link_open', [__CLASS__, 'product_link_open'], 9);
+            add_action('woocommerce_template_loop_product_link_close', [__CLASS__, 'product_link_close'], 9);
+        } else {
+            add_action('woocommerce_template_loop_product_link_open', [__CLASS__, 'product_link_open'], 9);
+            add_action('woocommerce_template_loop_product_link_close', [__CLASS__, 'product_link_close'], 9);
+        }
     }
 
     public static function render_button(): void
@@ -55,10 +63,14 @@ class QuickViewButton
             return;
         }
         printf(
-            '<a href="%1$s" class="woocommerce-LoopProduct-link" data-product-id="%2$d">',
-            esc_url(get_permalink($product->get_id())),
+            '<a class="woocommerce-LoopProduct-link" data-product-id="%2$d">',
             esc_attr($product->get_id())
         );
+        // printf(
+        //     '<a href="%1$s" class="woocommerce-LoopProduct-link" data-product-id="%2$d">',
+        //     esc_url(get_permalink($product->get_id())),
+        //     esc_attr($product->get_id())
+        // );
     }
 
     /**
