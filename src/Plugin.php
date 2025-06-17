@@ -6,6 +6,7 @@ use QuickViewForWC\Admin\SettingsPage;
 use QuickViewForWC\Public\Scripts;
 use QuickViewForWC\Public\QuickViewButton;
 use QuickViewForWC\Public\AjaxHandler;
+use QuickViewForWC\Public\ProductLoopWrapper;
 
 /**
  * Main plugin bootstrap class.
@@ -31,6 +32,7 @@ class Plugin
         Scripts::init();
         QuickViewButton::init();
         AjaxHandler::init();
+        ProductLoopWrapper::init();
 
         // Admin settings
         SettingsPage::init();
