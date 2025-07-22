@@ -37,8 +37,8 @@
     transform: translate(-50%, -50%);
     z-index: 20;
     padding: 10px 24px;
-    background: #222;
-    color: #fff;
+    background: #ffffff;
+    color: #000000;
     border: none;
     border-radius: 4px;
     font-size: 1rem;
@@ -57,6 +57,7 @@
 
 .quick-view-overlay-btn:hover,
 .quick-view-overlay-btn:focus {
-    background: #444;
+    background: #cccccc;
+    color: #000000;
     opacity: 1;
 }
