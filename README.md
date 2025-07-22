@@ -49,6 +49,12 @@ Adds a customizable Quick View modal to WooCommerce product listings. The modal 
 ![Quick View modal](/assets/screenshots/531148528.jpg)
 ![Quick View modal zoomed in gallery](/assets/screenshots/016823332.jpg)
 
+
+![A](/assets/screenshots/018672977.jpg)
+![B](/assets/screenshots/50751812.jpg)
+![C](/assets/screenshots/062650325.jpg)
+![D](/assets/screenshots/412603757.jpg)
+
 ## License
 
 This plugin is provided as-is, without warranty of any kind.
